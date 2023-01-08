@@ -1,0 +1,2 @@
+QuantLib==1.28
+dacite==1.7.0
