@@ -62,8 +62,6 @@ class FixedRateLeg(tuple):
 class AmortizingFixedRateBond(ql.Bond):
     bondSettlementDays: int
     bondCalendar: Calendar
-    bondFaceAmount: float
-    bondMaturityDate: Date
     bondIssueDate: Date
     bondCashFlows: FixedRateLeg
 
@@ -73,8 +71,6 @@ class AmortizingFixedRateBond(ql.Bond):
         super().__init__(
             self.bondSettlementDays,
             self.bondCalendar,
-            self.bondFaceAmount,
-            self.bondMaturityDate,
             self.bondIssueDate,
             self.bondCashFlows,
         )
