@@ -129,7 +129,7 @@ class Schedule(ql.Schedule):
     scheduleTerminationDateConvention: BusinessDayConvention
     scheduleTenor: Period
     scheduleCalendar: Calendar
-    scheduleRule: DateGeneration
+    scheduleDateGeneration: DateGeneration
     scheduleEndOfMonth: bool
     scheduleFirstDate: Date = field(default_factory=lambda: Date(date=''))
     scheduleNextToLastDate: Date = field(default_factory=lambda: Date(date=''))
@@ -142,7 +142,7 @@ class Schedule(ql.Schedule):
             self.scheduleCalendar,
             self.scheduleConvention,
             self.scheduleTerminationDateConvention,
-            self.scheduleRule,
+            self.scheduleDateGeneration,
             self.scheduleEndOfMonth,
             self.scheduleFirstDate,
             self.scheduleNextToLastDate,
@@ -180,5 +180,4 @@ class DayCounter(ql.DayCounter):
                 dayCounter_, self.dayCounterConvention)
             dayCounter_.__init__(self, dayCounterConvention_)
         else:
-            dayCounterCalendar_ = getattr(dayCounter_, self.dayCounterCalendar)
-            dayCounter_.__init__(self, dayCounterCalendar_)
+            dayCounter_.__init__(self, self.dayCounterCalendar)
