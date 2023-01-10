@@ -74,3 +74,26 @@ class AmortizingFixedRateBond(ql.Bond):
             self.bondIssueDate,
             self.bondCashFlows,
         )
+
+@dataclass
+class ZeroCouponBond(ql.ZeroCouponBond):
+    bondSettlementDays: int
+    bondCalendar: Calendar
+    bondFaceAmount: float
+    bondMaturityDate: Date
+    bondPaymentConvention: BusinessDayConvention
+    bondRedemption: float
+    bondIssueDate: Date
+
+    def __post_init__(self):
+        if self.bondSettlementDays < 0 or not isinstance(self.bondSettlementDays, int):
+            f'bondSettlementDays = {self.bondSettlementDays} is invalid because it shall be non-negative int type.'
+        super().__init__(
+            self.bondSettlementDays,
+            self.bondCalendar,
+            self.bondFaceAmount,
+            self.bondMaturityDate,
+            self.bondPaymentConvention,
+            self.bondRedemption,
+            self.bondIssueDate,
+        )
