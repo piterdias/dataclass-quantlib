@@ -51,8 +51,8 @@ class FixedRateLeg(tuple):
                                    exCouponEndOfMonth=legExCouponEndOfMonth,
                                    paymentCalendar=legPaymentCalendar,
                                    paymentLag=legPaymentLag,
-                                   # legCompounding=legCompounding,
-                                   # legFrequency=legFrequency
+                                   compounding=legCompounding,
+                                   compoundingFrequency=legFrequency
                                    )
         return super().__new__(cls, coupons_,
                                )
@@ -67,7 +67,7 @@ class AmortizingFixedRateBond(ql.Bond):
 
     def __post_init__(self):
         if self.bondSettlementDays < 0 or not isinstance(self.bondSettlementDays, int):
-            f'bondSettlementDays = {self.bondSettlementDays} is invalid because  it shall be non-negative int type.'
+            f'bondSettlementDays = {self.bondSettlementDays} is invalid because it shall be non-negative int type.'
         super().__init__(
             self.bondSettlementDays,
             self.bondCalendar,

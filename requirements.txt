@@ -1,2 +1,2 @@
-QuantLib==1.28
+QuantLib==1.29
 dacite==1.7.0
