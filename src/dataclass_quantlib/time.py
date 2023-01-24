@@ -24,11 +24,13 @@ class Date(ql.Date):
     date: str
 
     def __post_init__(self):
-        if self.date == '':
+        if self.date == "":
             super().__init__()
         else:
-            super().__init__(self.date, "%Y-%m-%d",
-                             )
+            super().__init__(
+                self.date,
+                "%Y-%m-%d",
+            )
 
 
 class DateGenerations(Enum):
@@ -131,8 +133,8 @@ class Schedule(ql.Schedule):
     scheduleCalendar: Calendar
     scheduleDateGeneration: DateGeneration
     scheduleEndOfMonth: bool
-    scheduleFirstDate: Date = field(default_factory=lambda: Date(date=''))
-    scheduleNextToLastDate: Date = field(default_factory=lambda: Date(date=''))
+    scheduleFirstDate: Date = field(default_factory=lambda: Date(date=""))
+    scheduleNextToLastDate: Date = field(default_factory=lambda: Date(date=""))
 
     def __post_init__(self):
         super().__init__(
@@ -152,12 +154,12 @@ class Schedule(ql.Schedule):
 @dataclass
 class DayCounter(ql.DayCounter):
     dayCounterName: str
-    dayCounterConvention: str = ''
-    dayCounterCalendar: Calendar = field(default_factory=lambda:
-                                         Calendar(calendarName='NullCalendar',
-                                                  calendarMarket=''
-                                                  )
-                                         )
+    dayCounterConvention: str = ""
+    dayCounterCalendar: Calendar = field(
+        default_factory=lambda: Calendar(
+            calendarName="NullCalendar", calendarMarket=""
+        )
+    )
 
     def __post_init__(self):
         try:
@@ -168,16 +170,23 @@ class DayCounter(ql.DayCounter):
             ) from ae
         if not issubclass(dayCounter_, ql.DayCounter):
             raise ValueError(
-                f"{self.dayCounterName} isn't a QuantLib day counter.")
-        if self.dayCounterConvention and (self.dayCounterCalendar.calendarName != 'NullCalendar'):
+                f"{self.dayCounterName} isn't a QuantLib day counter."
+            )
+        if self.dayCounterConvention and (
+            self.dayCounterCalendar.calendarName != "NullCalendar"
+        ):
             raise ValueError(
-                "Don't set both dayCounterConvention and dayCounterCalendar fields.")
-        if ('' == self.dayCounterConvention and
-                self.dayCounterCalendar.calendarName == 'NullCalendar'):
+                "Don't set both dayCounterConvention and dayCounterCalendar fields."
+            )
+        if (
+            "" == self.dayCounterConvention
+            and self.dayCounterCalendar.calendarName == "NullCalendar"
+        ):
             dayCounter_.__init__(self)
-        elif self.dayCounterConvention != '':
+        elif self.dayCounterConvention != "":
             dayCounterConvention_ = getattr(
-                dayCounter_, self.dayCounterConvention)
+                dayCounter_, self.dayCounterConvention
+            )
             dayCounter_.__init__(self, dayCounterConvention_)
         else:
             dayCounter_.__init__(self, self.dayCounterCalendar)
